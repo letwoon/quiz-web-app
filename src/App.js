@@ -9,9 +9,17 @@ import { useEffect, useState } from 'react';
 
 const sessionToken = "f5ea4d784726da670c2175456d714fe2c668c0acaf67501f187ad916178f9c60";
 
+// A function to shuffle the array
+const shuffleArray = array => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+}
+
 function App() {
-
-
 
   const [quizArray, setQuizArray] = useState([])
 
@@ -39,7 +47,7 @@ function App() {
             }
           })
 
-          const allOption = [
+          let allOption = [
               {
                 id: nanoid(),
                 answer: correct_answer,
@@ -47,6 +55,7 @@ function App() {
               },
               ...wrongOptionArray
           ] 
+          shuffleArray(allOption); // shuffle the order of option answers
           
           return {
             id: nanoid(),
