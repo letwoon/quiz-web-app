@@ -8,8 +8,11 @@ function QuizButton(props) {
     const [selected, setSelected] = useState("");
 
     function handleSelect(event, newSelect) { //newSelect return the value of the toggle button
+        console.log(newSelect);
         setSelected(newSelect);
     };
+
+
 
     return (
         <ToggleButtonGroup
@@ -18,9 +21,9 @@ function QuizButton(props) {
           exclusive
           sx={{display:"flex", flexWrap:"wrap"}}  
         >
-            {props.onChoices.map((choice) => {
-                return (<ToggleButton  key={choice.id} value={he.decode(choice.answer)}>
-                    {he.decode(choice.answer)}
+            {props.onChoices.map((choice, index) => {
+                return (<ToggleButton key={index} value={he.decode(choice)}>
+                    {he.decode(choice)}
                 </ToggleButton>)
           })}
         </ToggleButtonGroup>

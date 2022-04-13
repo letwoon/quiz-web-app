@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 const BackgroundPaper = styled(Paper)({
   backgroundColor: "#fafafa",
   maxWidth: 550,
+  minHeight: 550,
   height: "max-content",
   margin: "20px auto",
   position: "relative",

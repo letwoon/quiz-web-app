@@ -20,15 +20,7 @@ const myTheme = createTheme({
             primary: "#293264"
         }
     },
-    // components: {
-    //     MuiButton: {
-    //         styleOverrides: {
-    //             outlined: {
-    //                 color: "#293264"
-    //             }
-    //         }
-    //     }
-    // },
+    // style radio button as button element
     components: {
         MuiToggleButton: {
             styleOverrides: {

@@ -7,6 +7,9 @@ import axios from 'axios';
 import { nanoid } from 'nanoid'
 import { useEffect, useState } from 'react';
 
+
+//TODO: Responsive Design
+//TODO: time countdown mechanism
 const sessionToken = "f5ea4d784726da670c2175456d714fe2c668c0acaf67501f187ad916178f9c60";
 
 // A function to shuffle the array
@@ -22,6 +25,9 @@ const shuffleArray = array => {
 function App() {
 
   const [quizArray, setQuizArray] = useState([])
+  const [checkAnswer, setCheckAnswer] = useState([])
+
+  
 
   useEffect(() => {
     async function getQuiz() {
@@ -32,39 +38,29 @@ function App() {
             amount: 5,
             difficulty: "easy",
             type: "multiple",
-            token: sessionToken
+            // token: sessionToken
           }
         })
         const quizDataArray = response.data.results;
-        // restructuring the quiz object
-        const newQuizDataArray = quizDataArray.map(quizData => {
-          const { question, correct_answer, incorrect_answers } = quizData;
-          const wrongOptionArray = incorrect_answers.map((answer) => {
-            return {
-              id: nanoid(),
-              answer: answer,
-              isCorrect: false
-            }
-          })
-
-          let allOption = [
-              {
-                id: nanoid(),
-                answer: correct_answer,
-                isCorrect: true
-              },
-              ...wrongOptionArray
-          ] 
-          shuffleArray(allOption); // shuffle the order of option answers
-          
+        const newQuizData = quizDataArray.map((quiz) => {
           return {
             id: nanoid(),
-            question: question,
-            choices: allOption
+            ...quiz
           }
         })
-        setQuizArray(newQuizDataArray)
+        console.log(newQuizData);
+        setQuizArray(newQuizData);
 
+        const allAnswer = []
+        for (let i = 0; i < newQuizData.length; i++) {
+          allAnswer.push({
+            id: newQuizData[i].id,
+            isCorrect: false
+          })
+        }
+        setCheckAnswer(allAnswer);
+        console.log(allAnswer);
+        // setQuizArray(prev => console.log(prev));
       } catch(error) {
         console.log(error);
       }
@@ -72,7 +68,6 @@ function App() {
     getQuiz()
   } ,[])
   
-  console.log(quizArray);
 
   return (
     <ThemeProvider theme={theme}>
@@ -81,7 +76,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/quiz" element={<QuizPage onQuiz={quizArray} />} />
+          <Route path="/quiz" element={<QuizPage onQuiz={quizArray} setQuizArray={setQuizArray}/>} />
         </Routes>
     
       </Router>
