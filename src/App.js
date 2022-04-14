@@ -24,8 +24,8 @@ const shuffleArray = array => {
 
 function App() {
 
-  const [quizArray, setQuizArray] = useState([])
-  const [checkAnswer, setCheckAnswer] = useState([])
+  const [quizArray, setQuizArray] = useState([]) //for collect the quiz database
+  const [checkAnswer, setCheckAnswer] = useState([]) //for checking the result
 
   
 
@@ -42,15 +42,23 @@ function App() {
           }
         })
         const quizDataArray = response.data.results;
+
+        //append id and 
+        //a an array that include all the answer into database ,
+        //then shuffle the allAnswers array for render into choices button later 
         const newQuizData = quizDataArray.map((quiz) => {
+          const answers = [quiz.correct_answer, ...quiz.incorrect_answers]
+          shuffleArray(answers)
           return {
             id: nanoid(),
+            allAnswer: answers,
             ...quiz
           }
         })
         console.log(newQuizData);
         setQuizArray(newQuizData);
-
+        
+        //the array state for checking result
         const allAnswer = []
         for (let i = 0; i < newQuizData.length; i++) {
           allAnswer.push({
@@ -76,7 +84,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/quiz" element={<QuizPage onQuiz={quizArray} setQuizArray={setQuizArray}/>} />
+          <Route path="/quiz" element={<QuizPage onQuiz={quizArray} setCheckAnswer={setCheckAnswer} checkAnswer={checkAnswer}/>} />
         </Routes>
     
       </Router>

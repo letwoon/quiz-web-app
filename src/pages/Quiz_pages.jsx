@@ -6,19 +6,13 @@ import CircularProgress from '@mui/material/CircularProgress'
 import { useState } from 'react';
 
 function QuizPage(props) {
-    // const [checkAnswer, setCheckAnswer] = useState([])
     const [score, setScore] = useState(0)
 
-    // const allAnswer = []
-    // props.onQuiz.forEach((quiz) => {
-    //     allAnswer.push(false)
-    // });
-    // console.log(allAnswer);
-    // setCheckAnswer(allAnswer)
 
     function countScore() {
-        console.log(props.onQuiz);
+        console.log(props.checkAnswer);
     }
+    console.log("quiz page");
 
 
     return (
@@ -26,7 +20,7 @@ function QuizPage(props) {
             {props.onQuiz.length === 0 ?
                 <CircularProgress color="option" size="5rem" /> : 
             <Box sx={{display:"flex", flexDirection:"column", alignItems:"center"}}>
-                    <Quiz quizArray={props.onQuiz} setQuizArray={props.setQuizArray}/>
+                    <Quiz quizArray={props.onQuiz} setCheckAnswer={props.setCheckAnswer}/>
                 <Button onClick={countScore} sx={{marginTop:2}} variant='contained' color="navy">Check Answer</Button>
             </Box>}
             

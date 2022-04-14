@@ -8,8 +8,23 @@ function QuizButton(props) {
     const [selected, setSelected] = useState("");
 
     function handleSelect(event, newSelect) { //newSelect return the value of the toggle button
-        console.log(newSelect);
         setSelected(newSelect);
+        props.quizArray.forEach((quiz) => {
+            if (quiz.correct_answer === newSelect) {
+                console.log(quiz.id)
+                props.setCheckAnswer(prevResult => {
+                    return prevResult.map((result) => {
+                        return result.id === quiz.id ? {...result, isCorrect: true} : result
+                    })
+                })
+            } else {
+                props.setCheckAnswer(prevResult => {
+                    return prevResult.map((result) => {
+                        return result.id === quiz.id ? {...result, isCorrect: false} : result
+                    })
+                })
+            }
+        })
     };
 
 
