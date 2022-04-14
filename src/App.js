@@ -67,7 +67,7 @@ function App() {
           })
         }
         setCheckAnswer(allAnswer);
-        console.log(allAnswer);
+        console.log("set answer");
         // setQuizArray(prev => console.log(prev));
       } catch(error) {
         console.log(error);

@@ -7,12 +7,18 @@ import { useState } from 'react';
 
 function QuizPage(props) {
     const [score, setScore] = useState(0)
+    //if check answer is clicked then set quiz finish to true
+    const [finish, setFinish] = useState(false) 
 
 
     function countScore() {
         console.log(props.checkAnswer);
+        let score = 0;
+        props.checkAnswer.forEach((answer) => {
+            answer.isCorrect && score++
+        });
+        console.log(`Your score is ${score}`);
     }
-    console.log("quiz page");
 
 
     return (
