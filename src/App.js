@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import axios from 'axios';  
 import { nanoid } from 'nanoid'
 import { useEffect, useState } from 'react';
+import he from "he";
 
 
 //TODO: Responsive Design
@@ -25,7 +26,6 @@ const shuffleArray = array => {
 function App() {
 
   const [quizArray, setQuizArray] = useState([]) //for collect the quiz database
-  const [checkAnswer, setCheckAnswer] = useState([]) //for checking the result
 
   
 
@@ -43,32 +43,25 @@ function App() {
         })
         const quizDataArray = response.data.results;
 
-        //append id and 
-        //a an array that include all the answer into database ,
+        //append other key that needed in the project, 
+        //and an array that include all the answer into database ,
         //then shuffle the allAnswers array for render into choices button later 
         const newQuizData = quizDataArray.map((quiz) => {
-          const answers = [quiz.correct_answer, ...quiz.incorrect_answers]
+          const answers = [he.decode(quiz.correct_answer), ...quiz.incorrect_answers]
+          const correctAnswer = he.decode(quiz.correct_answer)
           shuffleArray(answers)
           return {
             id: nanoid(),
             allAnswer: answers,
+            correct_answer: correctAnswer,
+            user_answer: "",
+            user_isCorrect: false,
             ...quiz
           }
         })
         console.log(newQuizData);
         setQuizArray(newQuizData);
         
-        //the array state for checking result
-        const allAnswer = []
-        for (let i = 0; i < newQuizData.length; i++) {
-          allAnswer.push({
-            id: newQuizData[i].id,
-            isCorrect: false
-          })
-        }
-        setCheckAnswer(allAnswer);
-        console.log("set answer");
-        // setQuizArray(prev => console.log(prev));
       } catch(error) {
         console.log(error);
       }
@@ -84,7 +77,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/quiz" element={<QuizPage onQuiz={quizArray} setCheckAnswer={setCheckAnswer} checkAnswer={checkAnswer}/>} />
+          <Route path="/quiz" element={<QuizPage onQuiz={quizArray} setQuizArray={setQuizArray}/>} />
         </Routes>
     
       </Router>

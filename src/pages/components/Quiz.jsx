@@ -20,7 +20,7 @@ function Quiz(props) {
                     {he.decode(question)} {/* decode using "he" package */}
                 </Typography>
                         
-                <QuizButton onChoices={allAnswer} setCheckAnswer={props.setCheckAnswer} quizArray={props.quizArray}/>
+                <QuizButton onChoices={allAnswer} onId={id} quizArray={props.quizArray} setQuizArray={props.setQuizArray}/>
                 <Divider variant="middle" sx={{ margin: 1 }} />
             </Box>
         )
