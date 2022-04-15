@@ -29,6 +29,11 @@ function QuizPage(props) {
         setScore(currentScore);
     }
 
+    function restart() {
+        props.setQuizArray([]);
+        setIsFinish(false);
+        props.getQuiz();
+    }
 
     return (
         <Background>
@@ -36,10 +41,14 @@ function QuizPage(props) {
                 <CircularProgress color="option" size="5rem" /> : 
             <Box sx={{display:"flex", flexDirection:"column", alignItems:"center"}}>
                     <Quiz quizArray={props.onQuiz} setQuizArray={props.setQuizArray} isFinish={isFinish} />
-                    {isFinish &&
+                    {isFinish ?
+                        <Box>
                         <Typography variant='body1'>Your score: {score}/{props.onQuiz.length}</Typography>
+                        <Button onClick={restart} sx={{ marginTop: 2 }} variant='contained' color="navy">Play again</Button>
+                        </Box>
+                        :
+                        <Button onClick={countScore} sx={{ marginTop: 2 }} variant='contained' color="navy">Check Answer</Button>
                     }
-                    <Button onClick={countScore} sx={{ marginTop: 2 }} variant='contained' color="navy">Check Answer</Button>
             </Box>}
             
         </Background>

@@ -27,45 +27,45 @@ function App() {
 
   const [quizArray, setQuizArray] = useState([]) //for collect the quiz database
 
+  async function getQuiz() {
+    try {
+      // using axios get API request in useEffect
+      const response = await axios.get("https://opentdb.com/api.php", {
+        params: {
+          amount: 5,
+          difficulty: "easy",
+          type: "multiple",
+          // token: sessionToken
+        }
+      })
+      const quizDataArray = response.data.results;
+
+      //append other key that needed in the project, 
+      //and an array that include all the answer into database ,
+      //then shuffle the allAnswers array for render into choices button later 
+      const newQuizData = quizDataArray.map((quiz) => {
+        const answers = [quiz.correct_answer, ...quiz.incorrect_answers]
+        const correctAnswer = he.decode(quiz.correct_answer)
+        shuffleArray(answers)
+        return {
+          id: nanoid(),
+          allAnswer: answers,
+          correct_answer: correctAnswer,
+          user_answer: "",
+          user_isCorrect: false,
+          ...quiz
+        }
+      })
+      console.log(newQuizData);
+      setQuizArray(newQuizData);
+      
+    } catch(error) {
+      console.log(error);
+    }
+  }
   
 
   useEffect(() => {
-    async function getQuiz() {
-      try {
-        // using axios get API request in useEffect
-        const response = await axios.get("https://opentdb.com/api.php", {
-          params: {
-            amount: 5,
-            difficulty: "easy",
-            type: "multiple",
-            // token: sessionToken
-          }
-        })
-        const quizDataArray = response.data.results;
-
-        //append other key that needed in the project, 
-        //and an array that include all the answer into database ,
-        //then shuffle the allAnswers array for render into choices button later 
-        const newQuizData = quizDataArray.map((quiz) => {
-          const answers = [quiz.correct_answer, ...quiz.incorrect_answers]
-          const correctAnswer = he.decode(quiz.correct_answer)
-          shuffleArray(answers)
-          return {
-            id: nanoid(),
-            allAnswer: answers,
-            correct_answer: correctAnswer,
-            user_answer: "",
-            user_isCorrect: false,
-            ...quiz
-          }
-        })
-        console.log(newQuizData);
-        setQuizArray(newQuizData);
-        
-      } catch(error) {
-        console.log(error);
-      }
-    }
     getQuiz()
   } ,[])
   
@@ -77,7 +77,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/quiz" element={<QuizPage onQuiz={quizArray} setQuizArray={setQuizArray}/>} />
+          <Route path="/quiz" element={<QuizPage onQuiz={quizArray} setQuizArray={setQuizArray} getQuiz={getQuiz}/>} />
         </Routes>
     
       </Router>
