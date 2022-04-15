@@ -47,7 +47,7 @@ function App() {
         //and an array that include all the answer into database ,
         //then shuffle the allAnswers array for render into choices button later 
         const newQuizData = quizDataArray.map((quiz) => {
-          const answers = [he.decode(quiz.correct_answer), ...quiz.incorrect_answers]
+          const answers = [quiz.correct_answer, ...quiz.incorrect_answers]
           const correctAnswer = he.decode(quiz.correct_answer)
           shuffleArray(answers)
           return {

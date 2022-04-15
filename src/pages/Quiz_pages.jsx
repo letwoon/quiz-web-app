@@ -35,7 +35,7 @@ function QuizPage(props) {
             {props.onQuiz.length === 0 ?
                 <CircularProgress color="option" size="5rem" /> : 
             <Box sx={{display:"flex", flexDirection:"column", alignItems:"center"}}>
-                    <Quiz quizArray={props.onQuiz} setQuizArray={props.setQuizArray} />
+                    <Quiz quizArray={props.onQuiz} setQuizArray={props.setQuizArray} isFinish={isFinish} />
                     {isFinish &&
                         <Typography variant='body1'>Your score: {score}/{props.onQuiz.length}</Typography>
                     }

@@ -1,7 +1,10 @@
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { useEffect, useState } from 'react';
+import { styled } from '@mui/system';
+import { useState } from 'react';
 import he from "he";
+
+
 
 
 function QuizButton(props) {
@@ -15,7 +18,7 @@ function QuizButton(props) {
         props.setQuizArray(prevQuiz => {
             return prevQuiz.map(quiz => {
                 if (id === quiz.id) {
-                    return {...quiz, user_answer: value}
+                    return { ...quiz, user_answer: value }
                 } else {
                     return quiz
                 }
@@ -23,6 +26,22 @@ function QuizButton(props) {
         })
     };
 
+    function showCorrectAnswer(choice) {
+        // return { background: "#94D7A2" } 
+        let correctAnswerBackground;
+        if (props.isFinish) {
+            props.quizArray.forEach(quiz => {
+            if (choice === quiz.correct_answer) {
+                correctAnswerBackground = 
+                     {
+                      backgroundColor: "#F8BCBC",
+                      borderStyle: "none!important"
+                    }
+            }
+        })
+        }
+        return correctAnswerBackground;
+}
 
 
     return (
@@ -30,10 +49,10 @@ function QuizButton(props) {
           value={selected}
           onChange={handleSelect}  
           exclusive
-          sx={{display:"flex", flexWrap:"wrap"}}  
+          sx={{ display: "flex", flexWrap: "wrap" }}
         >
             {props.onChoices.map((choice, index) => {
-                return (<ToggleButton key={index} id={props.onId} value={he.decode(choice)}>
+                return (<ToggleButton key={index} sx={showCorrectAnswer(he.decode(choice))} id={props.onId} value={he.decode(choice)}>
                     {he.decode(choice)}
                 </ToggleButton>)
           })}
