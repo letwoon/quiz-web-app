@@ -3,7 +3,7 @@ import Paper from '@mui/material/Paper';
 
 const BackgroundPaper = styled(Paper)({
   backgroundColor: "#fafafa",
-  maxWidth: 550,
+  maxWidth: 750,
   minHeight: 550,
   height: "max-content",
   margin: "20px auto",
@@ -13,7 +13,10 @@ const BackgroundPaper = styled(Paper)({
   alignItems: "center",
   borderRadius: "60px",
   padding: "40px 60px",
-  zIndex: 0
+  zIndex: 0,
+  "@media only screen and (max-width: 800px)": {
+    maxWidth: "90%"
+  }
 });
 
 const DecoPaperA = styled("div")({
@@ -39,6 +42,8 @@ const DecoPaper2 = styled("div")({
   zIndex: -1,
 })
 
+// pass in the children parameter in component,
+// so it can wrap other component
 function Background({children}) {
     return (
         <BackgroundPaper elevation={4}>

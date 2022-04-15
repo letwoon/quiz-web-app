@@ -1,10 +1,7 @@
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { styled } from '@mui/system';
 import { useState } from 'react';
 import he from "he";
-
-
 
 
 function QuizButton(props) {
@@ -26,8 +23,8 @@ function QuizButton(props) {
         })
     };
 
+    // change the correct answer's background color after "check answer" is clicked
     function showCorrectAnswer(choice) {
-        // return { background: "#94D7A2" } 
         let correctAnswerBackground;
         if (props.isFinish) {
             props.quizArray.forEach(quiz => {

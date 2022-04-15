@@ -8,10 +8,10 @@ import { useState } from 'react';
 
 function QuizPage(props) {
     const [score, setScore] = useState(0)
-    //if check answer is clicked then set quiz finish to true
+    //if "check answer" is clicked then set quiz finish to true
     const [isFinish, setIsFinish] = useState(false) 
 
-
+    //calculate the score after "check answer" is clicked
     function countScore() {
         setIsFinish(true);
         let currentScore = 0

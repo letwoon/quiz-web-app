@@ -9,9 +9,7 @@ import { useEffect, useState } from 'react';
 import he from "he";
 
 
-//TODO: Responsive Design
-//TODO: time countdown mechanism
-const sessionToken = "f5ea4d784726da670c2175456d714fe2c668c0acaf67501f187ad916178f9c60";
+
 
 // A function to shuffle the array
 const shuffleArray = array => {
@@ -29,13 +27,12 @@ function App() {
 
   async function getQuiz() {
     try {
-      // using axios get API request in useEffect
+      // use axios get API request in useEffect
       const response = await axios.get("https://opentdb.com/api.php", {
         params: {
           amount: 5,
           difficulty: "easy",
           type: "multiple",
-          // token: sessionToken
         }
       })
       const quizDataArray = response.data.results;
@@ -64,7 +61,7 @@ function App() {
     }
   }
   
-
+  //call the trivia question api
   useEffect(() => {
     getQuiz()
   } ,[])
@@ -74,7 +71,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/quiz" element={<QuizPage onQuiz={quizArray} setQuizArray={setQuizArray} getQuiz={getQuiz}/>} />
