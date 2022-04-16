@@ -18,7 +18,7 @@ function Quiz(props) {
         //destructuring
         const { question, id, allAnswer } = quizData[i]
         showAllQuiz.push(
-            <Box key={id}>
+            <Box key={id} sx={{maxWidth: "100%"}}>
                 <Typography variant='h6'>
                     {he.decode(question)} {/* decode using "he" package */}
                 </Typography>
