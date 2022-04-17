@@ -92,24 +92,26 @@ function QuizPage(props) {
     function restart() {
         setQuizData([]);
         setIsFinish(false);
-        props.getQuiz();
+        getQuiz();
     }
 
     return (
         <Background>
             {quizData.length === 0 ?
                 <CircularProgress color="option" size="5rem" /> : 
-            <Box sx={{display:"flex", flexDirection:"column", alignItems:"center"}}>
-                    <Quiz isFinish={isFinish} />
-                    {isFinish ?
-                        <Box>
-                        <Typography variant='body1'>Your score: {score}/{quizData.length}</Typography>
-                        <Button onClick={restart} sx={{ marginTop: 2 }} variant='contained' color="navy">Play again</Button>
-                        </Box>
-                        :
-                        <Button onClick={countScore} sx={{ marginTop: 2 }} variant='contained' color="navy">Check Answer</Button>
-                    }
-            </Box>}
+          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            
+            <Quiz isFinish={isFinish} />
+          
+            {isFinish ?
+                <Box>
+                <Typography variant='body1'>Your score: {score}/{quizData.length}</Typography>
+                <Button onClick={restart} sx={{ marginTop: 2 }} variant='contained' color="navy">Play again</Button>
+                </Box>
+                :
+                <Button onClick={countScore} sx={{ marginTop: 2 }} variant='contained' color="navy">Check Answer</Button>
+            }
+          </Box>}
             
         </Background>
 

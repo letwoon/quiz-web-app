@@ -51,8 +51,9 @@ function QuizButton(props) {
           sx={{ display: "flex", flexWrap: "wrap" }}
         >
             {props.onChoices.map((choice, index) => {
-                return (<ToggleButton key={index} sx={showCorrectAnswer(he.decode(choice))} id={props.onId} value={he.decode(choice)}>
-                            {he.decode(choice)}
+                const decodedChoice = he.decode(choice);
+                return (<ToggleButton key={index} sx={showCorrectAnswer(decodedChoice)} id={props.onId} value={decodedChoice}>
+                            {decodedChoice}
                         </ToggleButton>)
           })}
         </ToggleButtonGroup>
