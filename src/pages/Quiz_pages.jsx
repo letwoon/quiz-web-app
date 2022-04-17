@@ -89,6 +89,7 @@ function QuizPage(props) {
         console.log(quizData);
     }
 
+    //restart the quiz 
     function restart() {
         setQuizData([]);
         setIsFinish(false);
